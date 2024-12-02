@@ -22,8 +22,8 @@ describe 'Usuário visualiza sessões' do
     room1 = Room.create(movie_theater: movie_theater1, name: 'Sala 1', capacity: 300)
     room2 = Room.create(movie_theater: movie_theater2, name: 'Sala 2', capacity: 250)
 
-    session1 = Session.create(day_of_week: 'Domingo', time: '20:00', room: room1, movie: movie1, movie_theater: movie_theater1)
-    session2 = Session.create(day_of_week: 'Domingo', time: '20:00', room: room2, movie: movie2)
+    session1 = Session.create(day_of_week: 'domingo', time: '20:00')
+    session2 = Session.create(day_of_week: 'domingo', time: '20:00')
 
     login_as user
     visit root_path

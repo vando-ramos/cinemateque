@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_11_26_220830) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_02_145205) do
+  create_table "movie_theater_sessions", force: :cascade do |t|
+    t.integer "movie_theater_id", null: false
+    t.integer "session_id", null: false
+    t.integer "room_id", null: false
+    t.integer "movie_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["movie_id"], name: "index_movie_theater_sessions_on_movie_id"
+    t.index ["movie_theater_id"], name: "index_movie_theater_sessions_on_movie_theater_id"
+    t.index ["room_id"], name: "index_movie_theater_sessions_on_room_id"
+    t.index ["session_id"], name: "index_movie_theater_sessions_on_session_id"
+  end
+
   create_table "movie_theaters", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -37,6 +50,13 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_26_220830) do
     t.index ["movie_theater_id"], name: "index_rooms_on_movie_theater_id"
   end
 
+  create_table "sessions", force: :cascade do |t|
+    t.integer "day_of_week"
+    t.time "time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -50,5 +70,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_11_26_220830) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "movie_theater_sessions", "movie_theaters"
+  add_foreign_key "movie_theater_sessions", "movies"
+  add_foreign_key "movie_theater_sessions", "rooms"
+  add_foreign_key "movie_theater_sessions", "sessions"
   add_foreign_key "rooms", "movie_theaters"
 end
